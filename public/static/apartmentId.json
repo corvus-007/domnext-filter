@@ -1,0 +1,16 @@
+{
+  "selectedHouseId": 2,
+  "floor": 3,
+  "selectedType": "roomed",
+  "selectedRoom": 1,
+  "area": 53.84,
+  "costMeter": 46000,
+  "totalCost": 2476640,
+  "status": 1,
+  "title": "Однокомнатная 53.84 м2",
+  "apartmentStatus": 1,
+  "showInPreview": true,
+  "placingApartmentOnQuarterMap": "",
+  "placingApartmentOnFloorPlan": "https://reflats.ru/files/apartments/placing_floor/5d11fb18ec34b890695235.jpg",
+  "pathToPdf": "https://reflats.ru/files/pdf/1.pdf"
+}

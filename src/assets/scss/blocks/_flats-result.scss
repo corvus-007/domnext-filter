@@ -1,0 +1,49 @@
+.flats-result {
+  position: relative;
+  min-height: 300px;
+  transition: opacity 0.25s;
+
+  &::before {
+    content: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100px;
+    z-index: 2;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border-top: 5px solid $secondary-color;
+    border-right: 5px solid transparent;
+    border-radius: 50%;
+    animation: 1s spin linear infinite;
+  }
+
+  &--loading {
+    opacity: 0.25;
+
+
+    &::before {
+      content: "";
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.flats-result__dashboard {
+  margin-bottom: 20px;
+
+  @include mq-min(768px) {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+  }
+}

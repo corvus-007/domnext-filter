@@ -1,0 +1,33 @@
+.view-mode-buttons {
+  display: flex;
+  overflow: hidden;
+
+  input {
+    @include visually-hidden();
+  }
+
+  label {
+    padding: 8px;
+    text-align: center;
+    user-select: none;
+    color: #bebebe;
+    transition: 0.25s;
+    cursor: pointer;
+  }
+
+  input:hover + label,
+  input:focus + label {
+    color: darken(#bebebe, 5%);
+  }
+
+  input:checked + label {
+    color: #003d58;
+  }
+}
+
+.view-mode-buttons__icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}

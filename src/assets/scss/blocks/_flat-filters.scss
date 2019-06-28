@@ -1,0 +1,13 @@
+.flat-filters {
+  padding: 24px 26px;
+  border-radius: $border-radius;
+  background-color: #fff;
+}
+
+.flat-filters__item {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

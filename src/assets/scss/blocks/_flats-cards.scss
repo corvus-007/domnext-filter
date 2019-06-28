@@ -1,0 +1,30 @@
+.flats-cards {
+  @include clear-list();
+
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -15px;
+}
+
+.flats-cards__item {
+  width: 100%;
+  margin-bottom: 15px;
+
+  @include mq-range(568px, 1279px) {
+    .flats-cards--display-card & {
+      @include calc-column-width(2, 15px);
+    }
+  }
+
+  @include mq-range(1280px, 1919px) {
+    .flats-cards--display-card & {
+      @include calc-column-width(3, 15px);
+    }
+  }
+
+  @include mq-min(1920px) {
+    .flats-cards--display-card & {
+      @include calc-column-width(4, 15px);
+    }
+  }
+}
