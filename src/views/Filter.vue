@@ -100,6 +100,7 @@
                     v-model="checkedAreaRange"
                     :minRange="10"
                     :tooltip="'none'"
+                    :process-style="{ backgroundColor: '#003d58' }"
                     @drag-end="changeFilterForm"
                   ></vue-slider>
 
@@ -160,9 +161,8 @@
           <div class="pswp__top-bar">
             <div class="pswp__counter"></div>
 
-            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+            <button class="pswp__button pswp__button--close" title="Закрыть (Esc)"></button>
 
-            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
             <div class="pswp__preloader">
               <div class="pswp__preloader__icn">
                 <div class="pswp__preloader__cut">
@@ -187,6 +187,11 @@
 
 <script>
 // import store from '../store';
+import Axios from 'axios';
+import VueSlider from 'vue-slider-component';
+import PhotoSwipe from 'photoswipe';
+import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default.js';
+
 import FlatCard from '@/components/FlatCard.vue';
 import PageActionPanel from '@/components/PageActionPanel.vue';
 import ApartmentsSort from '@/components/ApartmentsSort.vue';
@@ -195,11 +200,6 @@ import IconBase from '@/components/IconBase.vue';
 import IconHome from '@/components/icons/IconHome.vue';
 import IconViewGrid from '@/components/icons/IconViewGrid.vue';
 import IconViewList from '@/components/icons/IconViewList.vue';
-
-import Axios from 'axios';
-import VueSlider from 'vue-slider-component';
-import PhotoSwipe from 'photoswipe';
-import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default.js';
 
 import 'photoswipe/dist/photoswipe.css';
 import 'photoswipe/dist/default-skin/default-skin.css';
@@ -368,11 +368,17 @@ export default {
     };
   },
   computed: {
-    getQueryParamsString() {
+    // apartments() {
+    //   return this.$store.state.apartments;
+    // },
+    composeQueryParamsString() {
       const params = new URLSearchParams();
 
       // Типы домов
-      if (this.checkedHousesTypeIds.data && this.checkedHousesTypeIds.data.length) {
+      if (
+        this.checkedHousesTypeIds.data &&
+        this.checkedHousesTypeIds.data.length
+      ) {
         this.checkedHousesTypeIds.data.forEach(option => {
           params.append(this.checkedHousesTypeIds.name, option.value);
         });
@@ -434,9 +440,10 @@ export default {
   methods: {
     changeFilterForm() {
       this.isLoading = true;
-      const queryString = this.getQueryParamsString;
+      const queryString = this.composeQueryParamsString;
 
       this.fetchApartments(queryString).then(response => {
+        // this.$store.commit('getApartments', response.data);
         this.apartments = response.data;
         this.isLoading = false;
       });
@@ -500,6 +507,7 @@ export default {
     this.isLoading = true;
 
     this.fetchApartments().then(response => {
+      // this.$store.commit('getApartments', response.data);
       this.apartments = response.data;
       this.isLoading = false;
     });

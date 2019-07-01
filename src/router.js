@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Home from './views/Home.vue'
-import Apartment from "./views/Apartment.vue";
-import Filter from "./views/Filter.vue";
+import Apartment from './views/Apartment.vue'
+import Filter from './views/Filter.vue'
 
 Vue.use(Router)
 
@@ -14,14 +14,13 @@ export default new Router({
     {
       path: '/',
       name: 'filter',
-      component: Filter,
+      component: Filter
     },
     {
       path: '/apartment/:id',
       name: 'apartment',
-      component: Apartment,
-      // props: true
-    },
+      component: Apartment
+    }
     // {
     //   path: '/about',
     //   name: 'about',
@@ -31,7 +30,7 @@ export default new Router({
     //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     // }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior () {
     return { x: 0, y: 0 }
   }
 })

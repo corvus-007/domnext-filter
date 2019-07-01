@@ -225,9 +225,8 @@
           <div class="pswp__top-bar">
             <div class="pswp__counter"></div>
 
-            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+            <button class="pswp__button pswp__button--close" title="Закрыть (Esc)">✖</button>
 
-            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
             <div class="pswp__preloader">
               <div class="pswp__preloader__icn">
                 <div class="pswp__preloader__cut">
@@ -268,6 +267,7 @@ import 'photoswipe/dist/default-skin/default-skin.css';
 import { typeHouseDictionary, roomDictionary } from '@/assets/js/dictionary.js';
 
 export default {
+  name: 'ApartmentPage',
   data() {
     return {
       mainLayout: '',

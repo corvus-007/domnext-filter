@@ -50,6 +50,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/scss/variables';
+
+.field {
+  display: block;
+}
+
+.field__label {
+  margin-bottom: 6px;
+  margin-right: auto;
+  font-weight: 600;
+  font-size: 16px;
+
+  .field--required &::after {
+    content: '*';
+    font-size: 14px;
+    vertical-align: super;
+    color: $danger-color;
+  }
+}
+
 .field__control {
   display: flex;
   align-items: center;
@@ -63,6 +83,25 @@ export default {
 
   &:empty {
     display: none;
+  }
+}
+
+.field__input {
+  .field--error & {
+    border-color: #fd0d4d;
+  }
+}
+
+.field__text {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 1.25;
+  color: $muted-color;
+
+  .checkbox &,
+  .radiobox & {
+    margin-top: 0;
   }
 }
 </style>

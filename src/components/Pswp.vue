@@ -39,6 +39,12 @@
 
 <script>
 export default {
-
-}
+  props: {
+    showPhoto: {
+      type: Function,
+      required: true
+    }
+  },
+  methods: {}
+};
 </script>

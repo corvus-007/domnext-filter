@@ -18,10 +18,7 @@
     </MyFieldInput>
 
     <div class="popup-form__submit-wrapper form-submit-wrapper">
-      <MyButton
-        type="submit"
-        :disabled="($v.form.$invalid || isSubmitting)"
-      ></MyButton>
+      <MyButton type="submit" :disabled="($v.form.$invalid || isSubmitting)"></MyButton>
     </div>
   </form>
 </template>
@@ -33,10 +30,7 @@ import MyButton from './MyButton';
 import Axios from 'axios';
 import { typeHouseDictionary, roomDictionary } from '@/assets/js/dictionary.js';
 import { required } from 'vuelidate/lib/validators';
-
-function checkPhoneMask(value) {
-  return /\(\d{3}\)\ \d{3}\-\d{2}\-\d{2}/g.test(value);
-}
+import { checkPhoneMask } from '@/assets/js/validator.js';
 
 export default {
   name: 'RequestForm',
@@ -105,5 +99,9 @@ export default {
 .form-submit-wrapper {
   margin-top: 28px;
   text-align: center;
+}
+
+.field {
+  margin-bottom: 20px;
 }
 </style>

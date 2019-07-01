@@ -11,16 +11,16 @@ import './assets/scss/style.scss'
 
 Vue.config.productionTip = false
 
-Vue.use(VModal)
-Vue.use(Vuelidate)
-Vue.use(VueMask)
-
 Vue.filter('renamePentahauseToStudia', function (value) {
   if (/Пентхаус/.test(value)) {
     return value.replace(/Пентхаус/g, 'Студия')
   }
   return value
 })
+
+Vue.use(VModal)
+Vue.use(Vuelidate)
+Vue.use(VueMask)
 
 new Vue({
   router,
