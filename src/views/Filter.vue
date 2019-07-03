@@ -12,7 +12,7 @@
               <li class="breadcrumbs__item">
                 <a class="breadcrumbs__link" href="/">
                   <icon-base class="breadcrumbs__link-icon" viewBoxSize="307">
-                    <icon-home/>
+                    <icon-home />
                   </icon-base>
                   <span class="breadcrumbs__link-text visually-hidden">Главная</span>
                 </a>
@@ -30,10 +30,10 @@
                   id="field-view-card"
                   v-model="viewCardsValue"
                   value="card"
-                >
+                />
                 <label for="field-view-card" aria-label="Показать в виде карточек">
                   <icon-base class="view-mode-buttons__icon" viewBoxSize="35">
-                    <icon-view-grid/>
+                    <icon-view-grid />
                   </icon-base>
                 </label>
                 <input
@@ -42,16 +42,20 @@
                   id="field-view-list"
                   v-model="viewCardsValue"
                   value="list"
-                >
+                />
                 <label for="field-view-list" aria-label="Показать в виде списка">
                   <icon-base class="view-mode-buttons__icon" viewBoxSize="35">
-                    <icon-view-list/>
+                    <icon-view-list />
                   </icon-base>
                 </label>
               </div>
             </div>
 
-            <ApartmentsSort class="flats-result-dashboard__sort" v-model="sortByValue"></ApartmentsSort>
+            <ApartmentsSort
+              class="flats-result-dashboard__sort"
+              :value="sortByValue"
+              @input="chooseSortByValue"
+            ></ApartmentsSort>
           </div>
         </template>
       </PageActionPanel>
@@ -97,10 +101,11 @@
                     class="filter-range-slider"
                     :min="29"
                     :max="125"
-                    v-model="checkedAreaRange"
+                    :value="checkedAreaRange"
                     :minRange="10"
                     :tooltip="'none'"
                     :process-style="{ backgroundColor: '#003d58' }"
+                    @change="onchangeAreaRangeHandler"
                     @drag-end="changeFilterForm"
                   ></vue-slider>
 
@@ -121,14 +126,18 @@
         </div>
 
         <div class="common-page__content">
-          <div class="flats-result" :class="{'flats-result--loading': isLoading}">
+          <div class="flats-result" :class="{ 'flats-result--loading': isLoading }">
             <!--
               flats-cards--display-card
               flats-cards--display-list
             -->
             <ul
               class="flats-result__list flats-cards"
-              :class="[isViewCardsValue ? 'flats-cards--display-card': 'flats-cards--display-list']"
+              :class="[
+                isViewCardsValue
+                  ? 'flats-cards--display-card'
+                  : 'flats-cards--display-list'
+              ]"
               v-if="hasAnyApartments"
             >
               <li
@@ -139,7 +148,7 @@
                 @show-floor-plan="showFloorPlan"
               ></li>
             </ul>
-            <div class="flats-result__list" v-else-if="hasAnyApartments && isLoading">
+            <div class="flats-result__list" v-else-if="!hasAnyApartments && isLoading">
               <h2>Извините, ничего не найдено :(</h2>
             </div>
           </div>
@@ -204,45 +213,7 @@ import IconViewList from '@/components/icons/IconViewList.vue';
 import 'photoswipe/dist/photoswipe.css';
 import 'photoswipe/dist/default-skin/default-skin.css';
 import 'vue-slider-component/theme/default.css';
-
-const compareTypes = {
-  rooms: function(a, b) {
-    var roomList = {
-      Однокомнатная: '1',
-      Двухкомнатная: '2',
-      Трехкомнатная: '3',
-      Четырёхкомнатная: '4',
-      Студия: 'С'
-    };
-
-    var roomValueA = roomList[a.rooms] || '';
-    var roomValueB = roomList[b.rooms] || '';
-    var roomsA = roomValueA.toString();
-    var roomsB = roomValueB.toString();
-
-    return roomsA > roomsB ? 1 : -1;
-  },
-  floor: function(a, b) {
-    var floorA = parseInt(a.floor, 10);
-    var floorB = parseInt(b.floor, 10);
-
-    return floorA - floorB;
-  },
-  area: function(a, b) {
-    var areaA = parseFloat(a.area);
-    var areaB = parseFloat(b.area);
-
-    return areaA - areaB;
-  },
-  price: function(a, b) {
-    var totalCostA = a.totalCost.replace(/\D/g, '');
-    var totalCostB = b.totalCost.replace(/\D/g, '');
-    var priceA = parseFloat(totalCostA);
-    var priceB = parseFloat(totalCostB);
-
-    return priceA - priceB;
-  }
-};
+import { async } from 'q';
 
 export default {
   name: 'FilterPage',
@@ -250,10 +221,6 @@ export default {
     return {
       isLoading: false,
       viewCardsValue: 'card',
-      sortByValue: '',
-      apartments: [],
-      // checkedPriceRange: [1250000, 6000000],
-      checkedAreaRange: [29, 125],
       checkedHousesTypeIds: {
         name: 'houses_type_id[]',
         data: []
@@ -371,6 +338,12 @@ export default {
     // apartments() {
     //   return this.$store.state.apartments;
     // },
+    sortByValue() {
+      return this.$store.getters.sortByValue;
+    },
+    checkedAreaRange() {
+      return this.$store.getters.checkedAreaRange;
+    },
     composeQueryParamsString() {
       const params = new URLSearchParams();
 
@@ -398,33 +371,19 @@ export default {
         });
       }
 
-      // Диапазон цены
-      if (this.checkedPriceRange && this.checkedPriceRange.length) {
-        params.append('price_from', this.checkedPriceRange[0]);
-        params.append('price_to', this.checkedPriceRange[1]);
-      }
-
       // Диапазон площади
       if (this.checkedAreaRange && this.checkedAreaRange.length) {
         params.append('area_from', this.checkedAreaRange[0]);
         params.append('area_to', this.checkedAreaRange[1]);
       }
 
-      params.append('method', 'getApartmentsByFilter');
-
       return params.toString();
     },
     hasAnyApartments() {
-      return this.apartments.length;
+      return this.$store.getters.sortedApartments.length;
     },
     sortedApartments() {
-      const compareMethod = compareTypes[this.sortByValue];
-
-      if (compareMethod) {
-        return this.apartments.slice().sort(compareMethod);
-      }
-
-      return this.apartments.slice();
+      return this.$store.getters.sortedApartments;
     },
     isViewCardsValue() {
       switch (this.viewCardsValue) {
@@ -438,18 +397,20 @@ export default {
     }
   },
   methods: {
+    chooseSortByValue(event) {
+      this.$store.commit('SORT_BY_VALUE', event);
+    },
     changeFilterForm() {
       this.isLoading = true;
-      const queryString = this.composeQueryParamsString;
 
-      this.fetchApartments(queryString).then(response => {
-        // this.$store.commit('getApartments', response.data);
-        this.apartments = response.data;
-        this.isLoading = false;
-      });
+      this.$store
+        .dispatch('GetApartmentsAPI', this.composeQueryParamsString)
+        .then(response => {
+          this.isLoading = false;
+        });
     },
-    fetchApartments(payload = '') {
-      return Axios.get(`${process.env.VUE_APP_GET_APARTMENTS_API}?${payload}`);
+    onchangeAreaRangeHandler(rangeData) {
+      this.$store.commit('SET_CHECKED_AREA_RANGE', rangeData);
     },
     showFloorPlan(event) {
       const url = event;
@@ -506,11 +467,11 @@ export default {
 
     this.isLoading = true;
 
-    this.fetchApartments().then(response => {
-      // this.$store.commit('getApartments', response.data);
-      this.apartments = response.data;
-      this.isLoading = false;
-    });
+    this.$store
+      .dispatch('GetApartmentsAPI', this.composeQueryParamsString)
+      .then(response => {
+        this.isLoading = false;
+      });
   },
   components: {
     PageActionPanel,

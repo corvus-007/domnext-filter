@@ -14,7 +14,8 @@
         :placeholder="placeholder"
         @input="inputHandler"
         v-mask="mask"
-      >
+        :autofocus="autofocus"
+      />
     </div>
   </label>
 </template>
@@ -36,6 +37,10 @@ export default {
     mask: {
       type: String,
       default: ''
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

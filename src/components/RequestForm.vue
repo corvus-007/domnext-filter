@@ -4,6 +4,7 @@
       :class="{'field--error': $v.form.request_cost_name.$error}"
       v-model="$v.form.request_cost_name.$model"
       :placeholder="'Укажите имя'"
+      autofocus
     >Имя</MyFieldInput>
 
     <MyFieldInput
