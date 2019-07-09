@@ -12,7 +12,7 @@
               <li class="breadcrumbs__item">
                 <a class="breadcrumbs__link" href="/">
                   <icon-base class="breadcrumbs__link-icon" viewBoxSize="307">
-                    <icon-home/>
+                    <icon-home />
                   </icon-base>
                   <span class="breadcrumbs__link-text visually-hidden">Главная</span>
                 </a>
@@ -30,10 +30,10 @@
                   id="field-view-card"
                   v-model="viewCardsValue"
                   value="card"
-                >
+                />
                 <label for="field-view-card" aria-label="Показать в виде карточек">
                   <icon-base class="view-mode-buttons__icon" viewBoxSize="35">
-                    <icon-view-grid/>
+                    <icon-view-grid />
                   </icon-base>
                 </label>
                 <input
@@ -42,10 +42,10 @@
                   id="field-view-list"
                   v-model="viewCardsValue"
                   value="list"
-                >
+                />
                 <label for="field-view-list" aria-label="Показать в виде списка">
                   <icon-base class="view-mode-buttons__icon" viewBoxSize="35">
-                    <icon-view-list/>
+                    <icon-view-list />
                   </icon-base>
                 </label>
               </div>
