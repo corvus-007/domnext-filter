@@ -1,13 +1,14 @@
 <template>
   <form class="form popup-form" method="post" @submit.prevent="submit">
     <MyFieldInput
-      :class="{'field--error': $v.form.request_cost_name.$error}"
+      :class="{'field--error': $v.form.request_cost_name.$dirty && !$v.form.request_cost_name.required}"
       v-model="$v.form.request_cost_name.$model"
       :placeholder="'Укажите имя'"
+      autofocus
     >Имя</MyFieldInput>
 
     <MyFieldInput
-      :class="{'field--error': $v.form.request_cost_phone.$error}"
+      :class="{'field--error': ($v.form.request_cost_phone.$dirty && !$v.form.request_cost_phone.required)}"
       v-model="$v.form.request_cost_phone.$model"
       :type="'tel'"
       :mask="'(###) ###-##-##'"
