@@ -47,6 +47,18 @@ export default new Vuex.Store({
   state: {
     apartments: [],
     sortByValue: '',
+    checkedHousesTypeIds: {
+      name: 'houses_type_id[]',
+      data: []
+    },
+    checkedFloors: {
+      name: 'floors[]',
+      data: []
+    },
+    checkedRooms: {
+      name: 'rooms[]',
+      data: []
+    },
     checkedAreaRange: [29, 125]
   },
   mutations: {
@@ -55,6 +67,15 @@ export default new Vuex.Store({
     },
     SORT_BY_VALUE (state, payload) {
       state.sortByValue = payload
+    },
+    SET_CHECKED_HOUSES_TYPE_IDS (state, payload) {
+      state.checkedHousesTypeIds.data = payload
+    },
+    SET_CHECKED_FLOORS (state, payload) {
+      state.checkedFloors.data = payload
+    },
+    SET_CHECKED_ROOMS (state, payload) {
+      state.checkedRooms.data = payload
     },
     SET_CHECKED_AREA_RANGE (state, payload) {
       state.checkedAreaRange = payload
@@ -81,6 +102,15 @@ export default new Vuex.Store({
     },
     sortByValue (state) {
       return state.sortByValue
+    },
+    checkedHousesTypeIds (state) {
+      return state.checkedHousesTypeIds
+    },
+    checkedFloors (state) {
+      return state.checkedFloors
+    },
+    checkedRooms (state) {
+      return state.checkedRooms
     },
     checkedAreaRange (state) {
       return state.checkedAreaRange

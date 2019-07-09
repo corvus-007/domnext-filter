@@ -69,8 +69,8 @@
                 <div class="flat-filter__control">
                   <MyCheckboxesSelect
                     :selectParams="selectHousesType"
-                    v-model="checkedHousesTypeIds.data"
-                    @input="changeFilterForm"
+                    :value="checkedHousesTypeIds.data"
+                    @input="oninputHousesTypeIds"
                   ></MyCheckboxesSelect>
                 </div>
               </div>
@@ -80,7 +80,7 @@
                   <MyCheckboxesSelect
                     :selectParams="selectFloors"
                     v-model="checkedFloors.data"
-                    @input="changeFilterForm"
+                    @input="oninputFloors"
                   ></MyCheckboxesSelect>
                 </div>
               </div>
@@ -90,7 +90,7 @@
                   <MyCheckboxesSelect
                     :selectParams="selectRooms"
                     v-model="checkedRooms.data"
-                    @input="changeFilterForm"
+                    @input="oninputRooms"
                   ></MyCheckboxesSelect>
                 </div>
               </div>
@@ -195,7 +195,6 @@
 </template>
 
 <script>
-// import store from '../store';
 import Axios from 'axios';
 import VueSlider from 'vue-slider-component';
 import PhotoSwipe from 'photoswipe';
@@ -221,18 +220,6 @@ export default {
     return {
       isLoading: false,
       viewCardsValue: 'card',
-      checkedHousesTypeIds: {
-        name: 'houses_type_id[]',
-        data: []
-      },
-      checkedFloors: {
-        name: 'floors[]',
-        data: []
-      },
-      checkedRooms: {
-        name: 'rooms[]',
-        data: []
-      },
       selectHousesType: {
         placeholder: 'Выберите тип дома',
         initValue: ['Все типы домов'],
@@ -335,11 +322,17 @@ export default {
     };
   },
   computed: {
-    // apartments() {
-    //   return this.$store.state.apartments;
-    // },
     sortByValue() {
       return this.$store.getters.sortByValue;
+    },
+    checkedHousesTypeIds() {
+      return this.$store.getters.checkedHousesTypeIds;
+    },
+    checkedFloors() {
+      return this.$store.getters.checkedFloors;
+    },
+    checkedRooms() {
+      return this.$store.getters.checkedRooms;
     },
     checkedAreaRange() {
       return this.$store.getters.checkedAreaRange;
@@ -408,6 +401,18 @@ export default {
         .then(response => {
           this.isLoading = false;
         });
+    },
+    oninputHousesTypeIds(data) {
+      this.$store.commit('SET_CHECKED_HOUSES_TYPE_IDS', data);
+      this.changeFilterForm();
+    },
+    oninputFloors(data) {
+      this.$store.commit('SET_CHECKED_FLOORS', data);
+      this.changeFilterForm();
+    },
+    oninputRooms(data) {
+      this.$store.commit('SET_CHECKED_ROOMS', data);
+      this.changeFilterForm();
     },
     onchangeAreaRangeHandler(rangeData) {
       this.$store.commit('SET_CHECKED_AREA_RANGE', rangeData);
