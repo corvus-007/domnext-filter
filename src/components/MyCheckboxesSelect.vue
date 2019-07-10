@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       isSelectOpen: false,
-      optionsArr: []
+      optionsArr: this.value
     };
   },
   computed: {

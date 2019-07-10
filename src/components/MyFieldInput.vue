@@ -15,7 +15,7 @@
         @input="inputHandler"
         v-mask="mask"
         :autofocus="autofocus"
-      >
+      />
     </div>
   </label>
 </template>

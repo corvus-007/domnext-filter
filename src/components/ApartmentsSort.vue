@@ -1,8 +1,16 @@
 <template>
   <div class="nav-sort">
     <div class="nav-sort__select-box">
-      <select class="nav-sort__select" name="sort-by" @change="changeSortSelectHandler">
-        <option value selected>По умолчанию</option>
+      <select
+        class="nav-sort__select"
+        name="sort-by"
+        :value="value"
+        @change="changeSortSelectHandler"
+      >
+        <option
+          value
+          selected
+        >По умолчанию</option>
         <option value="rooms">Кол-во комнат</option>
         <option value="floor">Этаж</option>
         <option value="area">Площадь</option>

@@ -12,15 +12,15 @@
               <li class="breadcrumbs__item">
                 <a class="breadcrumbs__link" href="/">
                   <icon-base class="breadcrumbs__link-icon" viewBoxSize="307">
-                    <icon-home/>
+                    <icon-home />
                   </icon-base>
                   <span class="breadcrumbs__link-text visually-hidden">Главная</span>
                 </a>
               </li>
               <li class="breadcrumbs__item">
-                <router-link class="breadcrumbs__link" :to="{name: 'filter'}">
+                <router-link class="breadcrumbs__link" :to="{ name: 'filter' }">
                   <icon-base class="breadcrumbs__link-icon" viewBoxSize="492">
-                    <icon-back/>
+                    <icon-back />
                   </icon-base>
                   <span class="breadcrumbs__link-text">Назад</span>
                 </router-link>
@@ -33,7 +33,11 @@
             <ul class="flat-page-navigation__list" role="tablist">
               <li
                 class="flat-page-navigation__item"
-                :class="[activeTab === 'flat-plan' ? 'flat-page-navigation__item--active' : '']"
+                :class="[
+                  activeTab === 'flat-plan'
+                    ? 'flat-page-navigation__item--active'
+                    : ''
+                ]"
               >
                 <a
                   href="#flat-plan"
@@ -45,7 +49,11 @@
               </li>
               <li
                 class="flat-page-navigation__item"
-                :class="[activeTab === 'flat-floor' ? 'flat-page-navigation__item--active' : '']"
+                :class="[
+                  activeTab === 'flat-floor'
+                    ? 'flat-page-navigation__item--active'
+                    : ''
+                ]"
               >
                 <a
                   href="#flat-floor"
@@ -83,7 +91,7 @@
                       class="common-flat-picture__image"
                       :src="`${mainLayout}`"
                       alt="План квартиры"
-                    >
+                    />
                   </a>
                 </div>
               </section>
@@ -107,7 +115,7 @@
                     class="common-flat-picture__image"
                     :src="`${apartment.placingApartmentOnFloorPlan}`"
                     alt="Квартира на плане этажа"
-                  >
+                  />
                 </a>
               </div>
             </section>
@@ -121,7 +129,7 @@
                     <div class="flat-info__item">
                       <span class="flat__reserved">
                         <icon-base class="flat__reserved-icon" viewBoxSize="402">
-                          <icon-padlock/>
+                          <icon-padlock />
                         </icon-base>Квартира забронирована
                       </span>
                     </div>
@@ -175,7 +183,10 @@
 
               <div class="flat-detail__disclamer">
                 <p>
-                  <small>Указанный размер площади может незначительно отличаться.</small>
+                  <small>
+                    Указанный размер площади может незначительно
+                    отличаться.
+                  </small>
                 </p>
               </div>
               <div class="flat-detail__actions no-print">

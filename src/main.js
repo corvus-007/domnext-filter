@@ -6,7 +6,7 @@ import Vuelidate from 'vuelidate'
 import VueMask from 'v-mask'
 
 // import {Tabs, Tab} from 'vue-tabs-component';
-// import store from './store'
+import store from './store'
 import './assets/scss/style.scss'
 
 Vue.config.productionTip = false
@@ -24,6 +24,6 @@ Vue.use(VueMask)
 
 new Vue({
   router,
-  // store,
+  store,
   render: h => h(App)
 }).$mount('#app')
