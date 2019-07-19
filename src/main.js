@@ -6,7 +6,6 @@ import VueMask from 'v-mask'
 
 import MyModal from './components/MyModal'
 
-// import {Tabs, Tab} from 'vue-tabs-component';
 import store from './store'
 import './assets/scss/style.scss'
 
