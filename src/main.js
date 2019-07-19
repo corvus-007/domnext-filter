@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import VModal from 'vue-js-modal'
 import Vuelidate from 'vuelidate'
 import VueMask from 'v-mask'
+
+import MyModal from './components/MyModal'
 
 // import {Tabs, Tab} from 'vue-tabs-component';
 import store from './store'
 import './assets/scss/style.scss'
 
 Vue.config.productionTip = false
+
+Vue.component('MyModal', MyModal)
 
 Vue.filter('renamePentahauseToStudia', function (value) {
   if (/Пентхаус/.test(value)) {
@@ -18,7 +21,6 @@ Vue.filter('renamePentahauseToStudia', function (value) {
   return value
 })
 
-Vue.use(VModal)
 Vue.use(Vuelidate)
 Vue.use(VueMask)
 

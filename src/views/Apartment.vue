@@ -141,7 +141,7 @@
                       <span class="flat-info__caption">Стоимость</span>
                       <button
                         class="flat-detail__button"
-                        @click="showModal('popup-request-cost')"
+                        @click="showRequestModal"
                       >Запросить стоимость</button>
                     </div>
                   </div>
@@ -201,26 +201,12 @@
         </div>
       </div>
     </article>
+    <button @click="showRequestModal">Open modal</button>
 
-    <modal
-      name="popup-request-cost"
-      width="92%"
-      :maxWidth="420"
-      height="auto"
-      :clickToClose="false"
-      adaptive
-    >
-      <button
-        class="modal-close"
-        title="Закрыть"
-        aria-label="Закрыть"
-        @click="$modal.hide('popup-request-cost')"
-      >✖</button>
-      <div class="modal-content">
-        <h2 class="modal-content__title">Запросить стоимость</h2>
-        <RequestForm :apartment="apartment" @send-mortgage-form="hideModal"></RequestForm>
-      </div>
-    </modal>
+    <MyModal v-show="isRequestModalVisible" @close="closeRequestModal">
+      <template v-slot:header>Запросить стоимость</template>
+      <RequestForm :apartment="apartment" @send-mortgage-form="closeRequestModal"></RequestForm>
+    </MyModal>
 
     <div class="pswp" ref="pswp" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="pswp__bg"></div>
@@ -236,7 +222,7 @@
           <div class="pswp__top-bar">
             <div class="pswp__counter"></div>
 
-            <button class="pswp__button pswp__button--close" title="Закрыть (Esc)">✖</button>
+            <button class="pswp__button pswp__button--close" title="Закрыть (Esc)"></button>
 
             <div class="pswp__preloader">
               <div class="pswp__preloader__icn">
@@ -283,7 +269,8 @@ export default {
     return {
       mainLayout: '',
       apartment: {},
-      activeTab: 'flat-plan'
+      activeTab: 'flat-plan',
+      isRequestModalVisible: false
     };
   },
   computed: {
@@ -298,8 +285,11 @@ export default {
     }
   },
   methods: {
-    showModal(name) {
-      this.$modal.show(name, {});
+    showRequestModal() {
+      this.isRequestModalVisible = true;
+    },
+    closeRequestModal() {
+      this.isRequestModalVisible = false;
     },
     goBack() {
       this.$router.push({ name: 'filter' });
@@ -321,9 +311,6 @@ export default {
     },
     handlerFlatPageNavClick(targetId) {
       this.activeTab = targetId;
-    },
-    hideModal() {
-      this.$modal.hide('popup-request-cost');
     },
     showPhotoSwipe(event) {
       const image = event.target.closest('img');
