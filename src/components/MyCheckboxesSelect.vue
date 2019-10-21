@@ -218,7 +218,8 @@ export default {
   left: 0;
   right: 0;
   z-index: 10;
-  transform: translateY(5px);
+  max-height: calc(6 * 40px);
+  transform: translateY(4px);
   opacity: 0;
   background-color: #ffffff;
   border: 1px solid #bebebe;
@@ -226,6 +227,8 @@ export default {
   box-shadow: 0 16px 16px rgba(0, 0, 0, 0.04);
   pointer-events: none;
   overflow: hidden;
+  overflow-y: scroll;
+  overscroll-behavior-y: contain;
   transition: 0.25s;
 
   .checkboxes-select--open & {
@@ -240,10 +243,6 @@ export default {
   margin: 0;
   padding: 0;
   list-style: none;
-  max-height: calc(6 * 40px);
-  overflow: hidden;
-  overflow-y: scroll;
-  overscroll-behavior-y: contain;
 }
 
 .checkboxes-select__list-item {

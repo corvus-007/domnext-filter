@@ -42,8 +42,10 @@ export default {
   bottom: 0;
   z-index: 30;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   background-color: rgba(#000000, 0.8);
 }
 
