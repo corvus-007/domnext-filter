@@ -201,7 +201,6 @@
         </div>
       </div>
     </article>
-    <button @click="showRequestModal">Open modal</button>
 
     <MyModal v-show="isRequestModalVisible" @close="closeRequestModal">
       <template v-slot:header>Запросить стоимость</template>
